@@ -274,12 +274,27 @@ client.on('ready', async () => {
   console.log(`Logged in as ${client.user.tag}`);
   await initializeGiveaways();
 
-  // Join the custom voice channel
-  const voiceChannel = client.channels.cache.get(voiceChannelId);
+  const guildId = '999361914469634120'; // Replace with your actual guild ID
+  const voiceChannelId = '1198320859148992673'; // Replace with your actual voice channel ID
+
+  const guild = client.guilds.cache.get(guildId);
+
+  if (!guild) {
+    console.error('Invalid guild ID.');
+    return;
+  }
+
+  const voiceChannel = guild.channels.cache.get(voiceChannelId);
+
   if (voiceChannel && voiceChannel.type === 'GUILD_VOICE') {
-  voiceChannel.join();
-} else {
-  console.error('Invalid voice channel ID or channel type.');
+    try {
+      const connection = await voiceChannel.join();
+      connection.voice.setSelfDeaf(true);
+    } catch (error) {
+      console.error('Error joining voice channel:', error);
+    }
+  } else {
+    console.error('Invalid voice channel ID or channel type.');
   }
 
   // Set the presence status to idle and the custom state message
