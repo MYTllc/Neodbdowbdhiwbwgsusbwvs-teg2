@@ -1,3 +1,8 @@
+ here
+});
+
+vip
+client.login(token);
 const express = require('express');
 const app = express();
 const config = require('./config');
@@ -294,19 +299,6 @@ client.on('ready', async () => {
     ]
   });
 });
-
-  // Set the presence status to idle and the custom state message
-  client.user.setPresence({
-      status: 'idle',
-      activities: [
-        {
-          name: 'Dev : Its Zoro $',
-          type: 'STREAMING',
-          url: 'https://twitch.tv/amlabbas'
-        }
-      ]
-    });
-  });
 
 client.on('messageCreate', (message) => {
   if (message.author.bot) return; // Ignore messages from bots
