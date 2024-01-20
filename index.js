@@ -1,3 +1,4 @@
+const { joinVoiceChannel } = require('@discordjs/voice');
 const express = require('express');
 const app = express();
 const config = require('./config');
@@ -277,24 +278,23 @@ client.on('ready', async () => {
   const guildId = '999361914469634120'; // Replace with your actual guild ID
   const voiceChannelId = '1198320859148992673'; // Replace with your actual voice channel ID
 
-  const guild = client.guilds.cache.get(guildId);
+  try {
+    const guild = client.guilds.cache.get(guildId);
+    const voiceChannel = guild.channels.cache.get(voiceChannelId);
 
-  if (!guild) {
-    console.error('Invalid guild ID.');
-    return;
-  }
+    if (voiceChannel && voiceChannel.type === 'GUILD_VOICE') {
+      const connection = joinVoiceChannel({
+        channelId: voiceChannel.id,
+        guildId: guild.id,
+        adapterCreator: guild.voiceAdapterCreator
+      });
 
-  const voiceChannel = guild.channels.cache.find((channel) => channel.id === voiceChannelId && channel.type === 'GUILD_VOICE');
-
-  if (voiceChannel) {
-    try {
-      const connection = await voiceChannel.join();
-      connection.voice.setSelfDeaf(true);
-    } catch (error) {
-      console.error('Error joining voice channel:', error);
+      console.log(`Joined voice channel: ${voiceChannel.name}`);
+    } else {
+      console.error('Invalid voice channel ID or channel type.');
     }
-  } else {
-    console.error('Invalid voice channel ID or channel type.');
+  } catch (error) {
+    console.error('Error joining voice channel:', error);
   }
 
   // Set the presence status to idle and the custom state message
