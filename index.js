@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const config = require('./config');
-const { token, prefix, logChannelId, dbFilePath, requiredRoleId, yourImageURL } = config;
+const { token, prefix, logChannelId, dbFilePath, requiredRoleId, yourImageURL, voiceChannelId } = config; //To config every thing in code easily 
 const port = process.env.PORT || 3000; // Port for the web server
 const vip = require('./vip.js');
 
@@ -270,8 +270,30 @@ app.listen(port, () => {
   console.log(`Web server is running on port ${port}`);
 });
 
-client.once('ready', () => {
-  console.log(`This Bot Dev By: Its Zoro`);
+client.on('ready', async () => {
+  console.log(`Logged in as ${client.user.tag}`);
+  await initializeGiveaways();
+
+  // Join the custom voice channel
+  const voiceChannel = client.channels.cache.get(voiceChannelId);
+  if (voiceChannel && voiceChannel.type === 'GUILD_VOICE') {
+    voiceChannel.join();
+  } else {
+    console.error('Invalid voice channel ID or channel type.');
+  }
+
+  // Set the presence status to idle and the custom state message
+  client.user.setPresence({
+    status: 'idle',
+    activities: [
+      {
+        name: 'Dev : Its Zoro $',
+        type: 'STREAMING',
+        url: 'https://twitch.tv/amlabbas'
+      }
+    ]
+  });
+});
 
   // Set the presence status to idle and the custom state message
   client.user.setPresence({
