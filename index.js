@@ -262,7 +262,7 @@ async function endGiveaway(giveawayMessage, giveawayData) {
 
 // Define a simple route for the web server
 app.get('/', (req, res) => {
-  res.send('Bot is online.');
+  res.send('Bot was devloped by : Its.zoro , status : 🟢');
 });
 
 // Start the Express web server
@@ -277,9 +277,9 @@ client.on('ready', async () => {
   // Join the custom voice channel
   const voiceChannel = client.channels.cache.get(voiceChannelId);
   if (voiceChannel && voiceChannel.type === 'GUILD_VOICE') {
-    voiceChannel.join();
-  } else {
-    console.error('Invalid voice channel ID or channel type.');
+  voiceChannel.join();
+} else {
+  console.error('Invalid voice channel ID or channel type.');
   }
 
   // Set the presence status to idle and the custom state message
@@ -319,6 +319,7 @@ client.on('messageCreate', (message) => {
   }
   // Add more commands and their handling here
 });
+
 
 vip
 client.login(token);
