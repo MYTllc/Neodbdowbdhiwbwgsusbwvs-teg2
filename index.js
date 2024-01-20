@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const config = require('./config');
-const { token, prefix, logChannelId, dbFilePath, requiredRoleId, yourImageURL, voiceChannelId } = config; //To config every thing in code easily 
+const { token, prefix, logChannelId, dbFilePath, requiredRoleId, yourImageURL } = config; //To config every thing in code easily 
 const port = process.env.PORT || 3000; // Port for the web server
 const vip = require('./vip.js');
 
@@ -284,9 +284,9 @@ client.on('ready', async () => {
     return;
   }
 
-  const voiceChannel = guild.channels.cache.get(voiceChannelId);
+  const voiceChannel = guild.channels.cache.find((channel) => channel.id === voiceChannelId && channel.type === 'GUILD_VOICE');
 
-  if (voiceChannel && voiceChannel.type === 'GUILD_VOICE') {
+  if (voiceChannel) {
     try {
       const connection = await voiceChannel.join();
       connection.voice.setSelfDeaf(true);
