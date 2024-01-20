@@ -1,8 +1,3 @@
- here
-});
-
-vip
-client.login(token);
 const express = require('express');
 const app = express();
 const config = require('./config');
