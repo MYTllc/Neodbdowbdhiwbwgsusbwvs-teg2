@@ -1,6 +1,7 @@
 module.exports = {
 token: process.env.TOKEN,
   prefix: '+', // Command prefix
+  voiceChannelId: '1198320859148992673',
   logChannelId: '1188948553360478289', // Custom channel ID for the log
   requiredRoleId: '1130201746610856068', // ID of the required role
   dbFilePath: 'giveaways.db', // SQLite database file path
