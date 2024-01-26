@@ -152,34 +152,6 @@ client.on('messageCreate', async (message) => {
     } else if (command === 'ping') {
       message.reply(`<a:914975243167236186:1164306872753463447> بوينج , النبض هو ${Date.now() - message.createdTimestamp}ms.`);
     }
-    
-    } else if (command === 'grole') {
-      // Check if the author is an administrator
-      if (!message.member.permissions.has('ADMINISTRATOR')) {
-        message.channel.send('Only administrators can use this command.');
-        return;
-      }
-
-      // Parse the provided role ID from the command arguments
-      const roleID = args[0];
-
-      // Check if a valid role ID is provided
-      if (!roleID || !message.guild.roles.cache.has(roleID)) {
-        message.channel.send('Invalid role ID. Please provide a valid role ID.');
-        return;
-      }
-
-      // Save the required role ID and guild ID to the database
-      const db = new sqlite3.Database('guild_roles.db');
-      db.run('CREATE TABLE IF NOT EXISTS guild_roles (guild_id TEXT, role_id TEXT)');
-      db.run('INSERT OR REPLACE INTO guild_roles VALUES (?, ?)', [message.guild.id, roleID]);
-      db.close();
-
-      // Inform that the giveaway role has been updated
-      message.channel.send(`Giveaway role has been updated to the role with ID ${roleID} for this server.`);
-
-      // Optionally, you can omit saving to the config file in this case.
-      }
   }
 });
 
