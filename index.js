@@ -144,7 +144,7 @@ client.on('messageCreate', async (message) => {
         .setThumbnail("https://cdn.discordapp.com/emojis/1182419163784957954.gif?size=96&quality=lossless");
 
       const giveawayMessage = await message.channel.send({ embeds: [embed] });
-      giveawayMessage.react('<a:teemojigold:1182419102028017807>');
+      giveawayMessage.react('💸');
       giveawayData.messageId = giveawayMessage.id;
 
       // Set a timer to end the giveaway
@@ -202,7 +202,7 @@ function announceWinners(channel, winners, giveawayData) {
 // Function to end the giveaway
 async function endGiveaway(giveawayMessage, giveawayData) {
   const messageId = giveawayData.messageId;
-  const reaction = giveawayMessage.reactions.cache.get('1182419102028017807');
+  const reaction = giveawayMessage.reactions.cache.get('💸');
 
   if (!reaction) {
     giveawayMessage.edit('لم يتم العثور على ايموجي المشاركة!!');
@@ -275,8 +275,8 @@ client.on('ready', async () => {
   console.log(`Logged in as ${client.user.tag}`);
   await initializeGiveaways();
 
-  const guildId = '999361914469634120'; // Replace with your actual guild ID
-  const voiceChannelId = '1198320859148992673'; // Replace with your actual voice channel ID
+  const guildId = '1155913067838849094'; // Replace with your actual guild ID
+  const voiceChannelId = '1155913068933558375'; // Replace with your actual voice channel ID
 
   try {
     const guild = client.guilds.cache.get(guildId);
