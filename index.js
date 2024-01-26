@@ -179,7 +179,7 @@ client.on('messageCreate', async (message) => {
       message.channel.send(`Giveaway role has been updated to the role with ID ${roleID} for this server.`);
 
       // Optionally, you can omit saving to the config file in this case.
-    }
+      }
   }
 });
 
